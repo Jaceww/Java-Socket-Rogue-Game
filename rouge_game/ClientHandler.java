@@ -151,6 +151,37 @@ class ClientHandler extends Thread {
     }
 
     private boolean validMove(int posX, int posY) {
+        HashMap<String, Player> playerList = game.getAllPlayerObj();
+        Player player =  game.getPlayer(playerID);
+        String posState = player.positionState;
+
+        for (Map.Entry<String, Player> p : playerList.entrySet()) {
+
+            if (p.getValue().getName() != playerID) {
+
+                int x2 = p.getValue().getX();
+                int y2 = p.getValue().getY();
+
+                if (posState.equals("right") && posX + 20 >= x2 && posX < x2 + 40 && posY >= y2-50 && posY <= y2 + 40) {
+                    System.out.println("invalid move");
+                    return false;
+
+                 } else if (posState.equals("left") && posX <= x2 + 40 && posX + 20 > x2 &&  posY >= y2-50 && posY <= y2 + 40) {
+                    System.out.println("invalid move");
+                    return false;
+
+                } else if (posState.equals("down") && posY <= y2 && posY > y2 - 20 && posX >= x2 -50 && posX <= x2 + 50) {
+                    System.out.println("invalid move");
+                    return false;
+
+                }  else if (posState.equals("up") && posY < y2 + 20 && posY >= y2 && posX >= x2 -50 && posX <= x2 + 50) {
+                    System.out.println("invalid move");
+                    return false;
+
+                }
+            }
+        }
+
         if (posX > 1 && posX < 969 && posY > 67 && posY < 653) {
             return true;
         } else {
